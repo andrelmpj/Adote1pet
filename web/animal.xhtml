@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:panel style="border-color: white;">
+                <p:commandButton value="Voltar" style="position: absolute;" onclick="#{animalBean.voltar()}"/>
+                <center>
+                    <h1>Cadastrar Animal</h1>
+                    <p:layout style="min-width:600px;min-height:300px;position: absolute; top: 50px; margin:50px; left: 320px; border-color: white; ">
+                        <p:layoutUnit position="west" resizable="true" size="100" minSize="50" maxSize="300" style="border-color: white; size: 60px;">
+                            Nome: <br/> <br/> <br/>
+                            Raça: <br/> <br/> <br/>
+                            Data de <br/>
+                            Nasc.: <br/> <br/> 
+                            Idade: <br/><br/><br/>
+                            Cor: <br/><br/>
+                            Peso: <br/><br/><br/>
+                        </p:layoutUnit>
+
+                        <p:layoutUnit position="center" style="border-color: white;">
+                            <p:inputText size="50" value="#{animalBean.animal.nome}"/> <br/> <br/>
+
+                            <p:selectOneMenu style="width: 430px;" value="#{animalBean.animal.raca}">
+                                <f:selectItem itemLabel="Selecione raça"/>
+                                <f:selectItems value="#{racaBean.racas}" var="raca" itemLabel="#{raca.nome}" />
+                            </p:selectOneMenu> <br/> <br/>
+
+                            <p:calendar id="button" value="#{animalBean.animal.dataNasc}" showOn="button"></p:calendar> <br/> <br/><br/>
+
+                            <p:inputText size="50" value="#{animalBean.animal.idade}"/> <br/> <br/>
+
+                            <p:inputText size="50" value="#{animalBean.animal.cor}"/> <br/> <br/>
+
+                            <p:inputText size="50" value="#{animalBean.animal.peso}"/> <br/> <br/>
+
+                        </p:layoutUnit>
+
+                        <p:commandButton value="Salvar" actionListener="#{animalBean.salvar}" 
+                                         style="position: absolute; top: 380px; left: 170px;" update="tabelaAnimal"/> 
+
+                    </p:layout>
+
+                    <p:dataTable var="animal" value="#{animalBean.animais}" style="position: absolute; top: 550px; left: 20px; width: 1330px" id="tabelaAnimal">
+                        <p:column headerText="Id">
+                            <p:commandLink actionListener="#{animalBean.editar(animal.id)}" update="@all">
+                                <h:outputText value="#{animal.id}"/>
+                            </p:commandLink>
+                        </p:column>
+
+                        <p:column headerText="Nome">
+                            <h:outputText value="#{animal.nome}"/>
+                        </p:column>
+
+                        <p:column headerText="Raça">
+                            <h:outputText value="#{animal.raca}"/>
+                        </p:column>
+
+                        <p:column headerText="Data Nasc.">
+                            <h:outputText value="#{animal.dataNasc}"/>
+                        </p:column>
+
+                        <p:column headerText="Idade">
+                            <h:outputText value="#{animal.idade}"/>
+                        </p:column>
+
+                        <p:column headerText="Cor">
+                            <h:outputText value="#{animal.cor}"/>
+                        </p:column>
+
+                        <p:column headerText="Peso">
+                            <h:outputText value="#{animal.peso}"/>
+                        </p:column>
+
+                        <p:column headerText="Opções">
+                            <p:commandButton action="#{animalBean.salvar}" value="Editar" update="tabelaAnimal" /> 
+                            <p:commandButton action="#{animalBean.delete(animal.id)}" value="Excluir" update="tabelaAnimal" />
+                        </p:column>
+
+                    </p:dataTable>
+                </center>
+            </p:panel>
+        </h:form>
+    </h:body>
+</html>
+

@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:panel style="border-color: white;">
+                <p:commandButton value="Voltar" style="position: absolute;" onclick="#{adocaoBean.voltar()}"/>
+                <center>
+                    <h1>Registrar Adoção</h1> <br/><br/>
+                    <p:layout style="min-width:600px;min-height:300px;position: absolute; top: 50px; margin:50px; left: 320px; border-color: white; ">
+                        <p:layoutUnit position="west" resizable="true" size="100" minSize="50" maxSize="300" style="border-color: white;">
+                            Data da Adoção:  <br/> <br/> <br/>
+                            Animal: <br/> <br/> <br/>
+                            Nome do Dono: <br/><br/><br/>
+                            Telefone:
+                        </p:layoutUnit>
+
+                        <p:layoutUnit position="center" style="border-color: white;">
+                            <p:calendar id="button" showOn="button" value="#{adocaoBean.adocao.dataAdocao}" /><br/> <br/><br/>
+                            <p:selectOneMenu style="width: 430px;">
+                                <f:selectItem itemLabel="Selecione animal"/>
+                                <f:selectItems value="#{animalBean.animais}" var="animal" itemLabel="#{animal.nome}" />
+                            </p:selectOneMenu> <br/> <br/>   <br/>       
+                            <p:inputText size="50" value="#{adocaoBean.adocao.nomeDono}" /> <br/><br/><br/>
+                            <p:inputText size="50" value="#{adocaoBean.adocao.telefone}"/> <br/><br/><br/>
+                        </p:layoutUnit>
+
+                        <p:commandButton value="Salvar" actionListener="#{adocaoBean.salvar}" style="position: absolute; top: 320px; left: 170px;"
+                                         update="tabelaAdocao"/> 
+
+                    </p:layout>
+                </center>
+                <p:dataTable var="adocao" value="#{adocaoBean.adocoes}" style="position: absolute; top: 500px; left: 180px; width: 1000px" id="tabelaAdocao">
+                    <p:column headerText="Id">
+                        <p:commandLink actionListener="#{racaBean.editar(animal.id)}" update="@all">
+                            <h:outputText value="#{adocao.id}"/>
+                        </p:commandLink>
+                    </p:column>
+
+                    <p:column headerText="Data">
+                        <h:outputText value="#{adocao.dataAdocao}"/>
+                    </p:column>
+
+                    <p:column headerText="Animal">
+                        <h:outputText value="#{adocao.animal}"/>
+                    </p:column>
+
+                    <p:column headerText="Dono">
+                        <h:outputText value="#{adocao.nomeDono}"/>
+                    </p:column>
+
+                    <p:column headerText="Telefone">
+                        <h:outputText value="#{adocao.telefone}"/>
+                    </p:column>
+
+                    <p:column headerText="Opções">
+                        <p:commandButton  value="Editar" actionListener="#{adocaoBean.salvar}" update="tabelaAdocao"/> 
+                        <p:commandButton  value="Excluir" actionListener="#{adocaoBean.delete(adocao.id)}"  update="tabelaAdocao" />
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+        </h:form>
+    </h:body>
+</html>
+

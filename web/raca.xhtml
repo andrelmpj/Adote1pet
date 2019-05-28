@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:panel style="border-color: white;"> 
+                <p:commandButton value="Voltar" style="position: absolute;" action="#{racaBean.voltar}"/>
+                <center>
+                    <h1>Cadastrar Raça</h1>              
+                    <p:layout style="min-width:600px;min-height:300px;position: absolute; top: 50px; margin:50px; left: 320px; border-color: white; ">
+                        <p:layoutUnit position="west" resizable="true" size="100" minSize="50" maxSize="300" style="border-color: white;">
+                            Nome: <br/> <br/> <br/>
+                            OBS: <br/><br/><br/><br/><br/><br/>
+                            Pedigree: 
+                        </p:layoutUnit>
+
+                        <p:layoutUnit position="center" style="border-color: white;">
+                            <p:inputText size="50" value="#{racaBean.raca.nome}"/> <br/> <br/>
+                            <p:inputTextarea value="#{racaBean.raca.obs}" style="height:80px; width: 420px;"/><br/><br/>
+                            <p:selectBooleanButton value="#{racaBean.raca.pedigree}" id="value1" 
+                                                   onLabel="Sim" offLabel="Não" style="width:100px; position: absolute; top: 180px; left:30px;"/>
+                        </p:layoutUnit>
+
+                        <p:commandButton value="Salvar" actionListener="#{racaBean.salvar}" 
+                                         style="position: absolute; top: 280px; left: 170px;" update="tabelaRaca" /> 
+
+                    </p:layout>
+
+                    <p:dataTable var="raca" value="#{racaBean.racas}" style="position: absolute; top: 500px; left: 140px; width: 1100px" id="tabelaRaca">
+                        <p:column headerText="Id">
+                            <p:commandLink actionListener="#{racaBean.editar(raca.id)}" update="@all">
+                                <h:outputText value="#{raca.id}"/>
+                            </p:commandLink>
+                        </p:column>
+
+                        <p:column headerText="Raça">
+                                <h:outputText value="#{raca.nome}"/>
+                        </p:column>
+
+                        <p:column headerText="OBS">
+                            <h:outputText value="#{raca.obs}"/>
+                        </p:column>
+
+                        <p:column headerText="Pedigree">
+                            <h:outputText value="#{raca.pedigree}"/>
+                        </p:column>
+                        
+                       <p:column headerText="Opções"> 
+                        <p:commandButton  value="Editar" actionListener="#{racaBean.salvar}" 
+                                          update="tabelaRaca"/> 
+                        <p:commandButton value="Excluir" actionListener="#{racaBean.delete(raca.id)}" 
+                                          update="tabelaRaca"/>
+                       </p:column>
+                        
+                    </p:dataTable>
+                </center>
+            </p:panel>
+        </h:form>
+    </h:body>
+</html>
+
